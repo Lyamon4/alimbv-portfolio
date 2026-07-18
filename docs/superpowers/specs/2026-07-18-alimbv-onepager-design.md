@@ -1,8 +1,8 @@
-# alimbv.com One-Page Portfolio Design
+# alimbv.com Fixed-Screen Portfolio Design
 
 ## Goal
 
-Build a dark, extremely minimal personal one-page website for Alim Bupeshev at `alimbv.com`. The site must preserve all meaningful content from the existing Folk portfolio while replacing its opaque black presentation with a clearly visible full-screen animated pixel-art background.
+Build a dark, extremely minimal personal portfolio for Alim Bupeshev at `alimbv.com`. The final site uses four fixed-view pages in one visual system and replaces the old opaque black presentation with a clearly visible full-screen animated pixel-art background.
 
 ## Approved Direction
 
@@ -37,37 +37,36 @@ The GIF must be visible immediately on load. A fixed scrim may darken the center
 
 ## Page Structure
 
-1. **Identity / first viewport**
-   - Temporary circular current portrait, easy to replace later
-   - `yo, I'm` and `Alim Bupeshev`
-   - `13 y/o Developer & Entrepreneur · Kazakhstan`
-   - Concise introduction and Prism proof line
-   - Astana live time
-   - Telegram, GitHub, LinkedIn, Instagram, Email links
-   - Compact `Song of the Day` row for `Night, Blooming Jasmine.` by fakemink
+1. **Home — `/`**
+   - Current circular portrait
+   - `yo, I'm`, `Alim Bupeshev`, and `14 y/o Developer & Entrepreneur · Kazakhstan`
+   - Four compact introduction lines, including the Neuralese fundraising link and youngest-in-the-room line
+   - Underlined links to About, Projects, and Skills
+   - Astana live time and lowercase Telegram, GitHub, LinkedIn, Instagram, and Email links
 
-2. **About**
-   - Preserve the complete story from the previous website: school, starting at 12, connection to competitive math, product thinking, Prism, Goalden, and interests
+2. **About — `/about/`**
+   - A compact biography covering RFMSH, starting code at 12, competitive math, product thinking, Prism, Goalden, and interests
+   - `← home` navigation
 
-3. **Projects**
+3. **Projects — `/projects/`**
    - Prism / CEO
    - Fizmat Street Journal / CEO
    - StriveAI / CTO
    - Society.association / CTO with its Instagram link
-   - Goalden appears in About, matching the previous site's information architecture
+   - No Neuralese entry and no award copy
+   - `← home` navigation
 
-4. **Achievements and skills**
-   - All four achievement entries from the previous website
-   - Languages, Frameworks, Tools, and Other skill groups with every listed item
+4. **Skills — `/skills/`**
+   - Languages, Frameworks, Tools, and Other skill groups
+   - `← home` navigation
 
-5. **Contact**
-   - Email, phone, all social links, copyright, and `alimbv.com`
+Achievements, Song of the Day, and the old contact section do not appear on any page.
 
 ## Interaction
 
 - Live Astana time updates once per second.
 - External links open in a new tab with safe `rel` attributes.
-- Section content fades upward once as it enters the viewport.
+- Screen content fades upward once on load.
 - Hover effects only adjust opacity/color and underline offset.
 - With `prefers-reduced-motion`, disable reveal transitions and show the static background frame.
 
@@ -91,4 +90,29 @@ The GIF must be visible immediately on load. A fixed scrim may darken the center
 
 ## Technology
 
-Use a small Vite-powered vanilla HTML/CSS/JavaScript site. React is unnecessary for this static one-page experience. Keep dependencies minimal and deployment compatible with Vercel or any static host.
+Use a small Vite-powered vanilla HTML/CSS/JavaScript multipage site. React is unnecessary for this static experience. Keep dependencies minimal and deployment compatible with Vercel or any static host.
+
+## Approved Multipage Revision
+
+The user later approved replacing the long scrolling document with four fixed-view screens in the same browser tab:
+
+- `/` contains the identity, two adjacent intro lines, Astana time, social links, and underlined links to About, Projects, and Skills.
+- `/about/`, `/projects/`, and `/skills/` each reuse the same background, frame, typography, and reveal behavior and include a `← home` return link.
+- Every screen is locked to the viewport with no vertical scrolling on desktop or mobile.
+- Alim's age is 14 everywhere.
+- Achievements, award copy, the complete contact section, and the Song of the Day module are removed.
+- Neuralese is intentionally deferred until the user supplies project information.
+- The gray separator above the social links is removed. Astana time keeps its restrained footer styling but appears directly on the home screen.
+
+## Approved Home Copy Refinement
+
+The home introduction remains a single compact text block with four adjacent lines and no paragraph-sized gaps:
+
+1. `I build AI and web products independently.`
+2. `Currently exploring how technology can make learning, focus, and communication more human.`
+3. `Already raised $12k on this thing.`
+4. `In every room I walk into, I’m always the youngest.`
+
+Only the words `this thing` are underlined and link to `https://neuralese.asia`. The link opens safely in a new tab. This mention does not add Neuralese to the Projects page.
+
+The underlined About, Projects, and Skills links move closer to the introduction while remaining visually distinct from its four lines. The Astana time label increases to the same type size as the social links. No new panel, divider, badge, or content section is introduced.
