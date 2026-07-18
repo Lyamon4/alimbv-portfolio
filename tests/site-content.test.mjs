@@ -19,7 +19,7 @@ test('renders the supplied animated scene with a reduced-motion fallback', () =>
   assert.match(html, /class="scene-static"/);
 });
 
-test('preserves the identity, story and song from the previous site', () => {
+test('preserves the identity and story from the previous site', () => {
   for (const text of [
     'Alim Bupeshev',
     '13 y/o Developer &amp; Entrepreneur',
@@ -29,10 +29,17 @@ test('preserves the identity, story and song from the previous site', () => {
     'code alone isn\'t enough',
     'Goalden',
     'basketball, planes, AI startups, LARP, and electronic music',
-    'Night, Blooming Jasmine.',
-    'fakemink',
   ]) {
     assert.ok(html.includes(text), `missing previous-site content: ${text}`);
+  }
+});
+
+test('removes the song module and uses lowercase social labels', () => {
+  assert.ok(!html.includes('Song of the Day'));
+  assert.ok(!html.includes('Night, Blooming Jasmine.'));
+
+  for (const label of ['telegram', 'github', 'linkedin', 'instagram', 'email']) {
+    assert.ok((html.match(new RegExp(`>${label}<`, 'g')) ?? []).length >= 2, `missing lowercase label: ${label}`);
   }
 });
 
@@ -76,6 +83,7 @@ test('includes semantic structure, the live time hook and safe contact links', (
   assert.match(html, /<main/);
   assert.match(html, /<h1[^>]*>Alim Bupeshev<\/h1>/);
   assert.match(html, /id="astana-time"/);
+  assert.match(html, /<footer>[\s\S]*id="astana-time"[\s\S]*<\/footer>/);
   assert.match(html, /data-reveal/);
   assert.match(html, /src="\/src\/main\.js"/);
 
