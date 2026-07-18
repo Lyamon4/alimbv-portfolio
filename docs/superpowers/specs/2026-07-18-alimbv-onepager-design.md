@@ -103,6 +103,7 @@ The user later approved replacing the long scrolling document with four fixed-vi
 - Achievements, award copy, the complete contact section, and the Song of the Day module are removed.
 - Neuralese is intentionally deferred until the user supplies project information.
 - The gray separator above the social links is removed. Astana time keeps its restrained footer styling but appears directly on the home screen.
+- The supplied resume PDF is published unchanged and linked as lowercase `resume` beside the social profiles.
 
 ## Approved Home Copy Refinement
 

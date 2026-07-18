@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import test from 'node:test';
 
 function readSite(path) {
@@ -78,6 +78,17 @@ test('uses lowercase social labels and preserves every profile link on home', ()
   }
 
   assert.match(pages.home, /target="_blank" rel="noreferrer noopener"/);
+});
+
+test('links the supplied resume beside the social profiles', () => {
+  assert.ok(
+    existsSync(new URL('../public/alim-bupeshev-resume.pdf', import.meta.url)),
+    'missing public resume PDF',
+  );
+  assert.match(
+    pages.home,
+    /href="\/alim-bupeshev-resume\.pdf" target="_blank" rel="noreferrer noopener">resume<\/a>/,
+  );
 });
 
 test('moves the biography to its own no-scroll page', () => {
