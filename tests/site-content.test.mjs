@@ -20,6 +20,8 @@ const pages = {
 const allHtml = Object.values(pages).join('\n');
 const css = readSite('src/styles.css');
 const viteConfig = readSite('vite.config.js');
+const robots = readSite('public/robots.txt');
+const sitemap = readSite('public/sitemap.xml');
 
 test('renders the supplied scene on every full-screen page', () => {
   for (const [name, html] of Object.entries(pages)) {
@@ -169,4 +171,60 @@ test('locks the site to the viewport and builds all four HTML entries', () => {
   for (const entry of ['index.html', 'about/index.html', 'projects/index.html', 'skills/index.html']) {
     assert.ok(viteConfig.includes(entry), `missing Vite entry: ${entry}`);
   }
+});
+
+test('declares self-referential canonicals and index directives on every page', () => {
+  for (const [name, path] of [
+    ['home', ''],
+    ['about', 'about/'],
+    ['projects', 'projects/'],
+    ['skills', 'skills/'],
+  ]) {
+    assert.ok(
+      pages[name].includes(`<link rel="canonical" href="https://www.alimbv.com/${path}" />`),
+      `missing canonical on ${name}`,
+    );
+    assert.ok(
+      pages[name].includes('<meta name="robots" content="index, follow, max-image-preview:large" />'),
+      `missing index directive on ${name}`,
+    );
+  }
+});
+
+test('identifies Alim and the website with crawlable structured data', () => {
+  const match = pages.home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+  assert.ok(match, 'missing JSON-LD graph');
+
+  const data = JSON.parse(match[1]);
+  const website = data['@graph'].find((entry) => entry['@type'] === 'WebSite');
+  const person = data['@graph'].find((entry) => entry['@type'] === 'Person');
+
+  assert.equal(website.name, 'Alim Bupeshev');
+  assert.equal(website.url, 'https://www.alimbv.com/');
+  assert.equal(person.name, 'Alim Bupeshev');
+  assert.equal(person.url, 'https://www.alimbv.com/');
+  assert.equal(person.image, 'https://www.alimbv.com/avatar.jpg');
+  assert.ok(person.sameAs.includes('https://github.com/Aboba22222222233'));
+  assert.ok(person.sameAs.includes('https://linkedin.com/in/alim-bupeshev-7b19b03b5'));
+
+  assert.ok(pages.home.includes('<meta property="og:url" content="https://www.alimbv.com/" />'));
+  assert.ok(pages.home.includes('<meta property="og:image" content="https://www.alimbv.com/avatar.jpg" />'));
+});
+
+test('publishes robots.txt and a four-page canonical sitemap', () => {
+  assert.equal(
+    robots,
+    'User-agent: *\nAllow: /\nSitemap: https://www.alimbv.com/sitemap.xml\n',
+  );
+
+  for (const url of [
+    'https://www.alimbv.com/',
+    'https://www.alimbv.com/about/',
+    'https://www.alimbv.com/projects/',
+    'https://www.alimbv.com/skills/',
+  ]) {
+    assert.ok(sitemap.includes(`<loc>${url}</loc>`), `missing sitemap URL: ${url}`);
+  }
+
+  assert.equal((sitemap.match(/<loc>/g) ?? []).length, 4);
 });

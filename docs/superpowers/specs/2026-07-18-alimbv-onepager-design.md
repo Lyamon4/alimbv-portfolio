@@ -117,3 +117,14 @@ The home introduction remains a single compact text block with four adjacent lin
 Only the words `this thing` are underlined and link to `https://neuralese.asia`. The link opens safely in a new tab. This mention does not add Neuralese to the Projects page.
 
 The underlined About, Projects, and Skills links move closer to the introduction while remaining visually distinct from its four lines. The Astana time label increases to the same type size as the social links. No new panel, divider, badge, or content section is introduced.
+
+## Approved Search Indexing Revision
+
+The live Vercel configuration redirects `https://alimbv.com/` to `https://www.alimbv.com/`, so the `www` URL is the single canonical origin across HTML metadata, structured data, and the sitemap.
+
+- Every HTML page uses a self-referential canonical URL and an explicit `index, follow` robots directive.
+- The home page identifies the site and Alim Bupeshev with JSON-LD `WebSite` and `Person` nodes, including the crawlable portrait and existing public profiles in `sameAs`.
+- Open Graph and Twitter metadata describe the home page consistently as Alim's personal developer portfolio.
+- `/robots.txt` allows crawling and points to `/sitemap.xml`.
+- `/sitemap.xml` lists `/`, `/about/`, `/projects/`, and `/skills/` as absolute canonical URLs.
+- No ranking position is promised; Google Search Console submission remains a required manual indexing step after deployment.
