@@ -1,8 +1,6 @@
 :root {
   color-scheme: dark;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue",
-    Helvetica, Arial, sans-serif;
+  font-family: "Lora", Georgia, serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   --text: #f1f1ef;
