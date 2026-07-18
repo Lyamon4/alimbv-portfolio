@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Alim Bupeshev is a 13-year-old developer and entrepreneur from Kazakhstan building AI and web products."
+      content="Alim Bupeshev is a 14-year-old developer and entrepreneur from Kazakhstan building AI and web products."
     />
     <meta name="theme-color" content="#15141d" />
     <meta property="og:title" content="Alim Bupeshev — Developer & Entrepreneur" />
     <meta
       property="og:description"
-      content="Full-stack developer building real-world AI and web products independently."
+      content="Developer and entrepreneur building AI and web products independently."
     />
     <title>Alim Bupeshev — Developer & Entrepreneur</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌒</text></svg>" />
@@ -23,16 +23,16 @@
     />
     <link rel="stylesheet" href="/src/styles.css" />
   </head>
-  <body>
+  <body class="home-page">
     <div class="scene" aria-hidden="true">
       <img class="scene-gif" src="/background.gif" alt="" />
       <img class="scene-static" src="/background-static.png" alt="" />
       <div class="scene-grade"></div>
     </div>
 
-    <main class="page-frame">
-      <section class="hero" aria-labelledby="page-title">
-        <div class="hero-content" data-reveal>
+    <main class="page-frame screen">
+      <section class="home-screen" aria-labelledby="page-title">
+        <div class="home-content" data-reveal>
           <header class="identity">
             <img
               class="avatar"
@@ -44,23 +44,30 @@
             <div class="identity-copy">
               <p class="intro-label">yo, I'm</p>
               <h1 id="page-title">Alim Bupeshev</h1>
-              <p class="role-line">13 y/o Developer &amp; Entrepreneur · Kazakhstan</p>
+              <p class="role-line">14 y/o Developer &amp; Entrepreneur · Kazakhstan</p>
             </div>
           </header>
 
-          <div class="hero-copy prose">
-            <p>
-              I build <strong>real-world AI and web products</strong> independently — from
-              school wellbeing tools to products that turn ideas into working systems.
-            </p>
-            <p>
-              My first product, <strong>Prism</strong>, is being piloted at RFMSH. It won
-              <strong>1st place at Zerde 2026</strong> and
-              <strong>bronze at INFOMATRIX ASIA 2026</strong>.
-            </p>
-          </div>
+          <p class="home-copy">
+            <span>I build AI and web products independently.</span>
+            <span>Currently exploring how technology can make learning, focus, and communication more human.</span>
+            <span>Already raised $12k on <a href="https://neuralese.asia" target="_blank" rel="noreferrer noopener">this thing</a>.</span>
+            <span>In every room I walk into, I’m always the youngest.</span>
+          </p>
 
-          <div class="hero-meta">
+          <nav class="topic-links" aria-label="Explore this site">
+            <a href="/about/">about</a>
+            <a href="/projects/">projects</a>
+            <a href="/skills/">skills</a>
+          </nav>
+
+          <div class="home-info">
+            <div class="home-time" aria-label="Current time in Astana">
+              <span>Astana</span>
+              <span aria-hidden="true">·</span>
+              <time id="astana-time" datetime="">--:--</time>
+            </div>
+
             <nav class="social-links" aria-label="Social links">
               <a href="https://t.me/Lyamon4ik" target="_blank" rel="noreferrer noopener">telegram</a>
               <a href="https://github.com/Aboba22222222233" target="_blank" rel="noreferrer noopener">github</a>
@@ -69,202 +76,6 @@
               <a href="mailto:wifiskeleton300@gmail.com">email</a>
             </nav>
           </div>
-        </div>
-
-        <a class="scroll-cue" href="#about" aria-label="Continue to About">
-          <span>Scroll</span>
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="m6 9 6 6 6-6" />
-          </svg>
-        </a>
-      </section>
-
-      <section class="content-section" id="about" aria-labelledby="about-title">
-        <div class="section-inner" data-reveal>
-          <h2 id="about-title">About</h2>
-          <div class="prose about-copy">
-            <p>
-              I'm Alim, 13 years old. I study at the
-              <strong>Republican Physics and Mathematics School</strong> (RFMSH).
-            </p>
-            <p>
-              I started coding at 12, just out of curiosity — I wanted to understand if I could
-              build something that actually works. Then I discovered AI, startups, and young
-              founders who were already building products at 15–17. At some point I thought:
-              <strong>why not me?</strong>
-            </p>
-            <p>
-              I came to IT through a love of problems. In competitive math, I always liked that
-              you can't just memorize the answer — you have to understand the idea, find the
-              solution, and carry it through. Programming felt the same, except here you can turn
-              the result into a <strong>real product that real people use</strong>.
-            </p>
-            <p>
-              Over time I realized code alone isn't enough. You can build strong technology, but
-              if nobody needs it, it's not a product. That's why startups hooked me. You have to
-              understand people, their problems, and their needs — not just write code.
-            </p>
-            <p>
-              My first project is <strong>Prism</strong>, an AI-powered digital ecosystem for
-              monitoring and supporting students' psycho-emotional wellbeing. Right now it's being
-              piloted at RFMSH.
-            </p>
-            <p>
-              I also built <strong>Goalden</strong> — an AI coach that doesn't let you scroll until
-              you show real progress. When you open YouTube, TikTok, Instagram or Reddit, it asks:
-              “What did you do on the task you promised to finish?” Real answers only. If the
-              progress is genuine, Goalden opens the feed for 15 minutes. Then the door closes
-              again. For me, it's not just a blocker. It's a cash register before dopamine:
-              <strong>pay with progress first, then scroll</strong>.
-            </p>
-            <p>
-              Outside of code, I'm into basketball, planes, AI startups, LARP, and electronic music.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="content-section projects-section" id="projects" aria-labelledby="projects-title">
-        <div class="section-inner" data-reveal>
-          <h2 id="projects-title">Projects</h2>
-
-          <div class="project-list">
-            <article class="project-row">
-              <span class="project-index">01</span>
-              <div class="project-body">
-                <div class="project-heading">
-                  <h3>Prism</h3>
-                  <span class="project-role">CEO</span>
-                </div>
-                <p>AI-powered student wellbeing platform.</p>
-                <p class="project-detail">TypeScript · Supabase · PostgreSQL · Vercel</p>
-                <p class="project-proof">INFOMATRIX ASIA 2026 bronze · Zerde 2026 1st place</p>
-              </div>
-            </article>
-
-            <article class="project-row">
-              <span class="project-index">02</span>
-              <div class="project-body">
-                <div class="project-heading">
-                  <h3>Fizmat Street Journal</h3>
-                  <span class="project-role">CEO</span>
-                </div>
-                <p>Student media and content project focused on school life and community building.</p>
-              </div>
-            </article>
-
-            <article class="project-row">
-              <span class="project-index">03</span>
-              <div class="project-body">
-                <div class="project-heading">
-                  <h3>StriveAI</h3>
-                  <span class="project-role">CTO</span>
-                </div>
-                <p>AI pipeline and MVP built under 15 hours.</p>
-                <p class="project-proof">Qualified for American Corner competition</p>
-              </div>
-            </article>
-
-            <article class="project-row">
-              <span class="project-index">04</span>
-              <div class="project-body">
-                <div class="project-heading">
-                  <h3>
-                    <a
-                      href="https://instagram.com/society.association"
-                      target="_blank"
-                      rel="noreferrer noopener"
-                    >Society.association ↗</a>
-                  </h3>
-                  <span class="project-role">CTO</span>
-                </div>
-                <p>One of the largest youth supportive organizations in Astana.</p>
-                <p class="project-proof">Coordinated 20+ people in the tech department</p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="content-section proof-section" id="proof" aria-labelledby="achievements-title">
-        <div class="section-inner" data-reveal>
-          <div class="proof-grid">
-            <div>
-              <h2 id="achievements-title">Achievements</h2>
-              <dl class="open-list achievement-list">
-                <div>
-                  <dt>INFOMATRIX ASIA 2026</dt>
-                  <dd>Bronze</dd>
-                </div>
-                <div>
-                  <dt>Zerde 2026</dt>
-                  <dd>1st Place</dd>
-                </div>
-                <div>
-                  <dt>nFactorial Incubator 2026</dt>
-                  <dd>Finalist (Round 3)</dd>
-                </div>
-                <div>
-                  <dt>INFOMATRIX History</dt>
-                  <dd>Youngest prize winner</dd>
-                </div>
-              </dl>
-            </div>
-
-            <div class="skills-column">
-              <h2>Skills</h2>
-              <div class="skill-groups">
-                <div class="skill-group">
-                  <h3>Languages</h3>
-                  <p>TypeScript, JavaScript, Python, SQL</p>
-                </div>
-                <div class="skill-group">
-                  <h3>Frameworks</h3>
-                  <p>React, React Native, Expo, Tailwind CSS</p>
-                </div>
-                <div class="skill-group">
-                  <h3>Tools</h3>
-                  <p>Git, Docker, GitHub, Vercel, Vite, VS Code, Codex, Claude Code, PyCharm</p>
-                </div>
-                <div class="skill-group">
-                  <h3>Other</h3>
-                  <p>AI prototyping, Dashboards, Data visualization, MVP development</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="contact-section" id="contact" aria-labelledby="contact-title">
-        <div class="section-inner" data-reveal>
-          <p class="section-label">Get in touch</p>
-          <h2 id="contact-title">Let's talk.</h2>
-          <div class="contact-primary">
-            <a href="mailto:wifiskeleton300@gmail.com">wifiskeleton300@gmail.com</a>
-            <a href="tel:+77016755633">+7 701 675 5633</a>
-          </div>
-
-          <nav class="social-links contact-social" aria-label="Contact links">
-            <a href="https://t.me/Lyamon4ik" target="_blank" rel="noreferrer noopener">telegram</a>
-            <a href="https://github.com/Aboba22222222233" target="_blank" rel="noreferrer noopener">github</a>
-            <a href="https://linkedin.com/in/alim-bupeshev-7b19b03b5" target="_blank" rel="noreferrer noopener">linkedin</a>
-            <a href="https://instagram.com/Lyam.dev" target="_blank" rel="noreferrer noopener">instagram</a>
-            <a href="mailto:wifiskeleton300@gmail.com">email</a>
-          </nav>
-
-          <footer>
-            <div class="footer-time" aria-label="Current time in Astana">
-              <span>Astana</span>
-              <span aria-hidden="true">·</span>
-              <time id="astana-time" datetime="">--:--</time>
-            </div>
-            <div class="footer-copy">
-              <span>© 2026 Alim Bupeshev</span>
-              <span aria-hidden="true">·</span>
-              <span>alimbv.com</span>
-            </div>
-          </footer>
         </div>
       </section>
     </main>

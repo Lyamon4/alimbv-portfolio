@@ -2,70 +2,122 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
-function readSite() {
+function readSite(path) {
   try {
-    return readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+    return readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
   } catch {
     return '';
   }
 }
 
-const html = readSite();
+const pages = {
+  home: readSite('index.html'),
+  about: readSite('about/index.html'),
+  projects: readSite('projects/index.html'),
+  skills: readSite('skills/index.html'),
+};
 
-test('renders the supplied animated scene with a reduced-motion fallback', () => {
-  assert.match(html, /background\.gif/);
-  assert.match(html, /background-static\.png/);
-  assert.match(html, /class="scene-gif"/);
-  assert.match(html, /class="scene-static"/);
+const allHtml = Object.values(pages).join('\n');
+const css = readSite('src/styles.css');
+const viteConfig = readSite('vite.config.js');
+
+test('renders the supplied scene on every full-screen page', () => {
+  for (const [name, html] of Object.entries(pages)) {
+    assert.match(html, /background\.gif/, `${name} is missing the animated background`);
+    assert.match(html, /background-static\.png/, `${name} is missing the reduced-motion fallback`);
+    assert.match(html, /class="scene-gif"/, `${name} is missing the GIF hook`);
+    assert.match(html, /class="scene-static"/, `${name} is missing the static hook`);
+    assert.match(html, /class="page-frame screen"/, `${name} is not a fixed screen`);
+  }
 });
 
-test('preserves the identity and story from the previous site', () => {
+test('turns the home page into one compact navigation screen', () => {
   for (const text of [
     'Alim Bupeshev',
-    '13 y/o Developer &amp; Entrepreneur',
+    '14 y/o Developer &amp; Entrepreneur',
+    'I build AI and web products independently.',
+    'Currently exploring how technology can make learning, focus, and communication more human.',
+  ]) {
+    assert.ok(pages.home.includes(text), `missing home content: ${text}`);
+  }
+
+  for (const [href, label] of [
+    ['/about/', 'about'],
+    ['/projects/', 'projects'],
+    ['/skills/', 'skills'],
+  ]) {
+    assert.match(pages.home, new RegExp(`href="${href}"[^>]*>${label}<`));
+  }
+
+  assert.match(pages.home, /class="topic-links"/);
+  assert.match(pages.home, /class="home-time"[\s\S]*id="astana-time"/);
+  assert.doesNotMatch(pages.home, /class="hero-meta"/);
+});
+
+test('adds the approved fundraising copy and tighter home rhythm', () => {
+  assert.ok(pages.home.includes('Already raised $12k on'));
+  assert.ok(pages.home.includes('In every room I walk into, I’m always the youngest.'));
+  assert.match(
+    pages.home,
+    /href="https:\/\/neuralese\.asia" target="_blank" rel="noreferrer noopener">this thing<\/a>/,
+  );
+  assert.match(css, /\.home-time\s*{[\s\S]*?font-size:\s*16px;/);
+  assert.match(css, /\.topic-links\s*{[\s\S]*?margin-top:\s*16px;/);
+});
+
+test('uses lowercase social labels and preserves every profile link on home', () => {
+  for (const [label, href] of [
+    ['telegram', 'https://t.me/Lyamon4ik'],
+    ['github', 'https://github.com/Aboba22222222233'],
+    ['linkedin', 'https://linkedin.com/in/alim-bupeshev-7b19b03b5'],
+    ['instagram', 'https://instagram.com/Lyam.dev'],
+    ['email', 'mailto:wifiskeleton300@gmail.com'],
+  ]) {
+    assert.ok(pages.home.includes(`href="${href}"`), `missing link: ${href}`);
+    assert.ok(pages.home.includes(`>${label}</a>`), `missing lowercase label: ${label}`);
+  }
+
+  assert.match(pages.home, /target="_blank" rel="noreferrer noopener"/);
+});
+
+test('moves the biography to its own no-scroll page', () => {
+  for (const text of [
+    'About',
+    '14 years old',
     'Republican Physics and Mathematics School',
     'I started coding at 12',
     'competitive math',
-    'code alone isn\'t enough',
+    'product',
     'Goalden',
     'basketball, planes, AI startups, LARP, and electronic music',
   ]) {
-    assert.ok(html.includes(text), `missing previous-site content: ${text}`);
+    assert.ok(pages.about.includes(text), `missing About content: ${text}`);
   }
+
+  assert.match(pages.about, /href="\/"[^>]*>← home<\/a>/);
 });
 
-test('removes the song module and uses lowercase social labels', () => {
-  assert.ok(!html.includes('Song of the Day'));
-  assert.ok(!html.includes('Night, Blooming Jasmine.'));
-
-  for (const label of ['telegram', 'github', 'linkedin', 'instagram', 'email']) {
-    assert.ok((html.match(new RegExp(`>${label}<`, 'g')) ?? []).length >= 2, `missing lowercase label: ${label}`);
-  }
-});
-
-test('preserves every project and role', () => {
+test('moves the four current projects to their own page without Neuralese', () => {
   for (const text of [
+    'Projects',
     'Prism',
     'Fizmat Street Journal',
     'StriveAI',
     'Society.association',
     'AI-powered student wellbeing platform',
-    'Coordinated 20+ people in the tech department',
-    'Qualified for American Corner competition',
   ]) {
-    assert.ok(html.includes(text), `missing project content: ${text}`);
+    assert.ok(pages.projects.includes(text), `missing project content: ${text}`);
   }
 
-  assert.ok((html.match(/>CEO</g) ?? []).length >= 2, 'missing CEO roles');
-  assert.ok((html.match(/>CTO</g) ?? []).length >= 2, 'missing CTO roles');
+  assert.ok((pages.projects.match(/>CEO</g) ?? []).length >= 2, 'missing CEO roles');
+  assert.ok((pages.projects.match(/>CTO</g) ?? []).length >= 2, 'missing CTO roles');
+  assert.doesNotMatch(pages.projects, /Neuralese/i);
+  assert.match(pages.projects, /href="\/"[^>]*>← home<\/a>/);
 });
 
-test('preserves achievements and all four skill groups', () => {
+test('moves all skill groups to their own page', () => {
   for (const text of [
-    'INFOMATRIX ASIA 2026',
-    'Zerde 2026',
-    'nFactorial Incubator 2026',
-    'Youngest prize winner',
+    'Skills',
     'Languages',
     'Frameworks',
     'Tools',
@@ -75,28 +127,35 @@ test('preserves achievements and all four skill groups', () => {
     'Claude Code',
     'Data visualization',
   ]) {
-    assert.ok(html.includes(text), `missing proof or skill content: ${text}`);
+    assert.ok(pages.skills.includes(text), `missing skill content: ${text}`);
+  }
+
+  assert.match(pages.skills, /href="\/"[^>]*>← home<\/a>/);
+});
+
+test('removes achievements, the Prism award paragraph and contact section everywhere', () => {
+  for (const removed of [
+    'Achievements',
+    'Get in touch',
+    'Let\'s talk.',
+    'My first product',
+    '1st place at Zerde 2026',
+    'bronze at INFOMATRIX ASIA 2026',
+    'nFactorial Incubator 2026',
+    'Youngest prize winner',
+    '13 y/o',
+    '13 years old',
+  ]) {
+    assert.ok(!allHtml.includes(removed), `removed content still exists: ${removed}`);
   }
 });
 
-test('includes semantic structure, the live time hook and safe contact links', () => {
-  assert.match(html, /<main/);
-  assert.match(html, /<h1[^>]*>Alim Bupeshev<\/h1>/);
-  assert.match(html, /id="astana-time"/);
-  assert.match(html, /<footer>[\s\S]*id="astana-time"[\s\S]*<\/footer>/);
-  assert.match(html, /data-reveal/);
-  assert.match(html, /src="\/src\/main\.js"/);
+test('locks the site to the viewport and builds all four HTML entries', () => {
+  assert.match(css, /html,[\s\S]*body[\s\S]*overflow:\s*hidden/);
+  assert.match(css, /\.screen[\s\S]*height:\s*100(?:s|d)?vh/);
+  assert.match(css, /\.topic-links a[\s\S]*text-decoration/);
 
-  for (const href of [
-    'https://t.me/Lyamon4ik',
-    'https://github.com/Aboba22222222233',
-    'https://linkedin.com/in/alim-bupeshev-7b19b03b5',
-    'https://instagram.com/Lyam.dev',
-    'mailto:wifiskeleton300@gmail.com',
-    'tel:+77016755633',
-  ]) {
-    assert.ok(html.includes(`href="${href}"`), `missing link: ${href}`);
+  for (const entry of ['index.html', 'about/index.html', 'projects/index.html', 'skills/index.html']) {
+    assert.ok(viteConfig.includes(entry), `missing Vite entry: ${entry}`);
   }
-
-  assert.match(html, /target="_blank" rel="noreferrer noopener"/);
 });

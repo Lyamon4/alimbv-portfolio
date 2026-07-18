@@ -170,3 +170,11 @@ Confirm no horizontal overflow, 18 px body copy, stacked rows, visible backgroun
 Run: `npm test && npm run build`
 
 Expected: all tests pass and production build succeeds.
+
+## Approved Revision Plan — Fixed Multipage Screens
+
+- [x] Define a failing contract for four HTML entries, age 14, topic navigation, and removal of achievements/contact content.
+- [x] Replace the long homepage with a fixed identity/navigation screen.
+- [x] Add fixed About, Projects, and Skills pages with shared styling and `← home` navigation.
+- [x] Configure Vite to emit all four HTML entries.
+- [x] Verify tests, production output, in-tab navigation, and zero overflow at desktop and mobile sizes.
